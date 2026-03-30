@@ -18,8 +18,8 @@ const Index = () => {
               <Shield className="h-4 w-4 text-primary-foreground" />
             </div>
             <div>
-              <h1 className="text-lg font-serif text-foreground leading-tight">Decision Intelligence</h1>
-              <p className="text-[11px] text-muted-foreground tracking-wide">Citizen Complaint Analytics Platform</p>
+              <h1 className="text-lg font-serif text-foreground leading-tight">Mbaza</h1>
+              <p className="text-[11px] text-muted-foreground tracking-wide">Citizen Engagement Platform</p>
             </div>
           </div>
           <div className="flex items-center gap-3">
