@@ -4,7 +4,7 @@ import ComplaintTrends from "@/components/dashboard/ComplaintTrends";
 import GeographicHotspots from "@/components/dashboard/GeographicHotspots";
 import PredictiveSection from "@/components/dashboard/PredictiveSection";
 import InsightsFeed from "@/components/dashboard/InsightsFeed";
-import RootCauses from "@/components/dashboard/RootCauses";
+
 import InterventionImpact from "@/components/dashboard/InterventionImpact";
 
 const Index = () => {
