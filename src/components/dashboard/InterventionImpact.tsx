@@ -2,25 +2,25 @@ import { ArrowDown, ArrowUp } from "lucide-react";
 
 const interventions = [
   {
-    action: "Emergency Pothole Repair — District 11",
+    action: "Emergency Pothole Repair — Kicukiro, Gatenga",
     before: 312,
     after: 165,
     metric: "complaints/month",
-    date: "Feb 2025",
+    date: "Feb 2026",
   },
   {
-    action: "New Water Tanker Route — Riverside",
+    action: "New Water Tanker Route — Nyarugenge, Nyamirambo",
     before: 198,
     after: 87,
     metric: "complaints/month",
-    date: "Jan 2025",
+    date: "Jan 2026",
   },
   {
-    action: "Drainage Cleaning Drive — Westfield",
+    action: "Drainage Cleaning Drive — Gasabo, Kimironko",
     before: 445,
     after: 380,
     metric: "complaints/month",
-    date: "Dec 2024",
+    date: "Dec 2025",
   },
 ];
 

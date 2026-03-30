@@ -1,10 +1,10 @@
 const zones = [
-  { name: "District 7 — Westfield", complaints: 847, severity: "critical" as const, change: "+32%" },
-  { name: "District 3 — Riverside", complaints: 612, severity: "high" as const, change: "+18%" },
-  { name: "District 11 — North End", complaints: 534, severity: "high" as const, change: "+24%" },
-  { name: "District 5 — Central", complaints: 423, severity: "moderate" as const, change: "+5%" },
-  { name: "District 9 — Lakeside", complaints: 389, severity: "moderate" as const, change: "-3%" },
-  { name: "District 2 — Southgate", complaints: 267, severity: "low" as const, change: "-12%" },
+  { name: "Gasabo — Kimironko", complaints: 847, severity: "critical" as const, change: "+32%" },
+  { name: "Nyarugenge — Nyamirambo", complaints: 612, severity: "high" as const, change: "+18%" },
+  { name: "Kicukiro — Gatenga", complaints: 534, severity: "high" as const, change: "+24%" },
+  { name: "Musanze — Muhoza", complaints: 423, severity: "moderate" as const, change: "+5%" },
+  { name: "Rubavu — Gisenyi", complaints: 389, severity: "moderate" as const, change: "-3%" },
+  { name: "Huye — Tumba", complaints: 267, severity: "low" as const, change: "-12%" },
 ];
 
 const severityStyles = {

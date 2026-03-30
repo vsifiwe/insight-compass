@@ -2,23 +2,23 @@ import { AlertTriangle, ArrowRight } from "lucide-react";
 
 const predictions = [
   {
-    area: "District 7 — Westfield",
+    area: "Gasabo — Kimironko",
     prediction: "Complaints expected to rise 40% in the next 30 days",
     reason: "Heavy rainfall forecast + aging drainage infrastructure",
     confidence: 87,
     risk: "critical" as const,
   },
   {
-    area: "District 3 — Riverside",
+    area: "Nyarugenge — Nyamirambo",
     prediction: "Water supply complaints likely to double by April",
     reason: "Seasonal demand surge + pipeline maintenance delays",
     confidence: 79,
     risk: "high" as const,
   },
   {
-    area: "District 11 — North End",
+    area: "Kicukiro — Gatenga",
     prediction: "Road complaints may increase 25% within 2 weeks",
-    reason: "Post-monsoon pothole formation pattern detected",
+    reason: "Post-rainy season pothole formation pattern detected",
     confidence: 72,
     risk: "moderate" as const,
   },
