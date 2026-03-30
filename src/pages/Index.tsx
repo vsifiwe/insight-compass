@@ -4,7 +4,7 @@ import ComplaintTrends from "@/components/dashboard/ComplaintTrends";
 import GeographicHotspots from "@/components/dashboard/GeographicHotspots";
 import PredictiveSection from "@/components/dashboard/PredictiveSection";
 import InsightsFeed from "@/components/dashboard/InsightsFeed";
-import RootCauses from "@/components/dashboard/RootCauses";
+
 import InterventionImpact from "@/components/dashboard/InterventionImpact";
 
 const Index = () => {
@@ -50,11 +50,8 @@ const Index = () => {
           <GeographicHotspots />
         </div>
 
-        {/* Predictive + Root Causes */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <PredictiveSection />
-          <RootCauses />
-        </div>
+        {/* Predictive */}
+        <PredictiveSection />
 
         {/* Intervention Impact */}
         <InterventionImpact />
