@@ -50,11 +50,8 @@ const Index = () => {
           <GeographicHotspots />
         </div>
 
-        {/* Predictive + Root Causes */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <PredictiveSection />
-          <RootCauses />
-        </div>
+        {/* Predictive */}
+        <PredictiveSection />
 
         {/* Intervention Impact */}
         <InterventionImpact />
