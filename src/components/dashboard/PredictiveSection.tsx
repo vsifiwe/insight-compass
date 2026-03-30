@@ -18,7 +18,7 @@ interface Factor {
 
 interface TrendPoint {
   month: string;
-  actual: number;
+  actual?: number;
   predicted?: number;
 }
 
