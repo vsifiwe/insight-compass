@@ -57,6 +57,10 @@ const insights: Insight[] = [
       { id: "CMP-4730", citizen: "D. Niyonzima", district: "Gasabo, Kimironko", date: "Mar 21, 2026", summary: "Road completely submerged near school zone, children unable to commute safely." },
       { id: "CMP-4712", citizen: "M. Mukamana", district: "Gasabo, Kimironko", date: "Mar 20, 2026", summary: "Repeated waterlogging at the same junction — third complaint this month." },
     ],
+    resolvedCases: [
+      { id: "RSV-1102", district: "Gasabo, Remera", date: "Nov 2025", issue: "Chronic waterlogging on KG 7 Ave during rainy season", resolution: "WASAC replaced 1.2km of collapsed storm drains and installed 4 new catch basins", outcome: "Flooding complaints dropped 78% in 60 days; no waterlogging reported in subsequent rains", resolvedBy: "WASAC + Gasabo District Works" },
+      { id: "RSV-0847", district: "Kicukiro, Gikondo", date: "Aug 2025", issue: "Repeated sewage backup in residential area near Gikondo industrial zone", resolution: "Emergency desludging and upgrade of drainage channel capacity from 200L/s to 450L/s", outcome: "Zero sewage-related complaints in the area for 5 consecutive months", resolvedBy: "WASAC Field Operations" },
+    ],
   },
   {
     icon: Droplets,
