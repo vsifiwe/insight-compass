@@ -131,6 +131,13 @@ const InsightsFeed = () => {
               </div>
               <p className="text-sm font-semibold text-foreground">{ins.title}</p>
               <p className="text-sm text-muted-foreground mt-1 leading-relaxed">{ins.body}</p>
+              <div className="flex flex-wrap gap-1.5 mt-2">
+                {ins.tags.map((tag) => (
+                  <Badge key={tag} variant="secondary" className="text-[10px] px-2 py-0 h-5">
+                    {tag}
+                  </Badge>
+                ))}
+              </div>
               <div className="mt-2 flex items-start gap-1.5">
                 <ins.icon className="h-3.5 w-3.5 text-accent mt-0.5 shrink-0" />
                 <p className="text-xs font-medium text-foreground/80">{ins.action}</p>
