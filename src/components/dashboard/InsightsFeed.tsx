@@ -96,6 +96,10 @@ const insights: Insight[] = [
       { id: "CMP-4389", citizen: "B. Mutesi", district: "Kicukiro, Gatenga", date: "Mar 14, 2026", summary: "Road surface completely broken near Gatenga market, dangerous for motorcycles." },
       { id: "CMP-4350", citizen: "S. Hakizimana", district: "Kicukiro, Gatenga", date: "Mar 12, 2026", summary: "Potholes filled last week have reappeared — poor quality repair materials." },
     ],
+    resolvedCases: [
+      { id: "RSV-0789", district: "Nyarugenge, Gitega", date: "Jul 2025", issue: "Dangerous potholes on major commercial road causing accidents", resolution: "RTDA deployed rapid-response team for full-surface patching on 2.8km stretch within 5 days", outcome: "Road complaints dropped 63% in 30 days; accident reports at the junction fell to zero", resolvedBy: "RTDA Rapid Response Unit" },
+      { id: "RSV-0554", district: "Gasabo, Kimihurura", date: "Apr 2025", issue: "Road deterioration near embassy district causing traffic and safety issues", resolution: "Complete resurfacing with improved drainage channels along KG 9 Ave", outcome: "Citizen satisfaction survey showed 89% approval; zero new complaints in 4 months", resolvedBy: "RTDA + Gasabo District" },
+    ],
   },
   {
     icon: Zap,
