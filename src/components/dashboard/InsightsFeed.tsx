@@ -234,6 +234,51 @@ const InsightsFeed = () => {
                   ))}
                 </div>
               </div>
+
+              {selected.resolvedCases.length > 0 && (
+                <div className="mt-6">
+                  <div className="flex items-center gap-2 mb-3">
+                    <CheckCircle2 className="h-4 w-4 text-positive" />
+                    <h4 className="text-sm font-semibold text-foreground">
+                      Previously Resolved Similar Cases ({selected.resolvedCases.length})
+                    </h4>
+                  </div>
+                  <div className="space-y-3">
+                    {selected.resolvedCases.map((rc) => (
+                      <div key={rc.id} className="p-3 rounded-lg border border-positive/20 bg-positive/5">
+                        <div className="flex items-center justify-between mb-1.5">
+                          <span className="text-xs font-mono font-semibold text-positive">{rc.id}</span>
+                          <div className="flex items-center gap-2 text-[11px] text-muted-foreground">
+                            <span className="flex items-center gap-1">
+                              <MapPin className="h-3 w-3" />
+                              {rc.district}
+                            </span>
+                            <span className="flex items-center gap-1">
+                              <Calendar className="h-3 w-3" />
+                              {rc.date}
+                            </span>
+                          </div>
+                        </div>
+                        <p className="text-sm font-medium text-foreground mb-1">{rc.issue}</p>
+                        <div className="space-y-1.5 mt-2">
+                          <div className="flex items-start gap-2">
+                            <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mt-0.5 shrink-0 w-16">Action</span>
+                            <p className="text-xs text-foreground/80 leading-relaxed">{rc.resolution}</p>
+                          </div>
+                          <div className="flex items-start gap-2">
+                            <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mt-0.5 shrink-0 w-16">Result</span>
+                            <p className="text-xs text-positive leading-relaxed font-medium">{rc.outcome}</p>
+                          </div>
+                          <div className="flex items-start gap-2">
+                            <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mt-0.5 shrink-0 w-16">Led by</span>
+                            <p className="text-xs text-foreground/70 leading-relaxed">{rc.resolvedBy}</p>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </>
           )}
         </DialogContent>
