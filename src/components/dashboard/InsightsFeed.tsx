@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Lightbulb, TrendingUp, Droplets, Construction, Zap, MapPin, Calendar, User } from "lucide-react";
+import { Lightbulb, TrendingUp, Droplets, Construction, Zap, MapPin, Calendar, User, CheckCircle2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import {
   Dialog,
