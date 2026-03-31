@@ -118,6 +118,10 @@ const insights: Insight[] = [
       { id: "CMP-4775", citizen: "N. Uwase", district: "Musanze, Muhoza", date: "Mar 25, 2026", summary: "Repeated power cuts during peak hours, seems like grid overload issue." },
       { id: "CMP-4760", citizen: "H. Kamanzi", district: "Musanze, Muhoza", date: "Mar 24, 2026", summary: "Unscheduled outage lasted 10 hours, no response from helpline." },
     ],
+    resolvedCases: [
+      { id: "RSV-0998", district: "Rubavu, Gisenyi", date: "Oct 2025", issue: "Grid overload causing daily power cuts during evening peak hours", resolution: "REG installed a new 5MVA transformer and upgraded feeder lines serving 3 cells", outcome: "Power outage complaints dropped 85% within 45 days; peak-hour stability restored", resolvedBy: "REG Western Region" },
+      { id: "RSV-0812", district: "Huye, Tumba", date: "Aug 2025", issue: "Transformer failure left 1,200 households without power for 3 days", resolution: "Emergency transformer replacement and installation of surge protection on the feeder", outcome: "Power restored in 18 hours after equipment arrived; no repeat failures in 6 months", resolvedBy: "REG + Huye District" },
+    ],
   },
 ];
 
