@@ -17,6 +17,16 @@ interface Complaint {
   summary: string;
 }
 
+interface ResolvedCase {
+  id: string;
+  district: string;
+  date: string;
+  issue: string;
+  resolution: string;
+  outcome: string;
+  resolvedBy: string;
+}
+
 interface Insight {
   icon: typeof TrendingUp;
   type: string;
@@ -27,6 +37,7 @@ interface Insight {
   tags: string[];
   methodology: string;
   complaints: Complaint[];
+  resolvedCases: ResolvedCase[];
 }
 
 const insights: Insight[] = [
