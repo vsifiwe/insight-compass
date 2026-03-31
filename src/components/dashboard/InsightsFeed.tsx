@@ -159,11 +159,23 @@ const InsightsFeed = () => {
                 </div>
                 <DialogTitle className="font-serif text-xl">{selected.title}</DialogTitle>
                 <DialogDescription className="leading-relaxed">{selected.body}</DialogDescription>
+                <div className="flex flex-wrap gap-1.5 mt-2">
+                  {selected.tags.map((tag) => (
+                    <Badge key={tag} variant="secondary" className="text-[10px] px-2 py-0 h-5">
+                      {tag}
+                    </Badge>
+                  ))}
+                </div>
               </DialogHeader>
 
-              <div className="mt-2 p-3 rounded-lg bg-primary/5 border border-primary/10 flex items-start gap-2">
+              <div className="p-3 rounded-lg bg-primary/5 border border-primary/10 flex items-start gap-2">
                 <selected.icon className="h-4 w-4 text-primary mt-0.5 shrink-0" />
                 <p className="text-sm font-medium text-foreground">{selected.action}</p>
+              </div>
+
+              <div className="p-4 rounded-lg border border-border/60 bg-muted/10">
+                <h4 className="text-sm font-semibold text-foreground mb-2">How this insight was generated</h4>
+                <p className="text-sm text-muted-foreground leading-relaxed">{selected.methodology}</p>
               </div>
 
               <div className="mt-4">
