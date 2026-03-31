@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Lightbulb, TrendingUp, Droplets, Construction, Zap, MapPin, Calendar, User } from "lucide-react";
+import { Lightbulb, TrendingUp, Droplets, Construction, Zap, MapPin, Calendar, User, CheckCircle2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import {
   Dialog,
@@ -17,6 +17,16 @@ interface Complaint {
   summary: string;
 }
 
+interface ResolvedCase {
+  id: string;
+  district: string;
+  date: string;
+  issue: string;
+  resolution: string;
+  outcome: string;
+  resolvedBy: string;
+}
+
 interface Insight {
   icon: typeof TrendingUp;
   type: string;
@@ -27,6 +37,7 @@ interface Insight {
   tags: string[];
   methodology: string;
   complaints: Complaint[];
+  resolvedCases: ResolvedCase[];
 }
 
 const insights: Insight[] = [
@@ -46,6 +57,10 @@ const insights: Insight[] = [
       { id: "CMP-4730", citizen: "D. Niyonzima", district: "Gasabo, Kimironko", date: "Mar 21, 2026", summary: "Road completely submerged near school zone, children unable to commute safely." },
       { id: "CMP-4712", citizen: "M. Mukamana", district: "Gasabo, Kimironko", date: "Mar 20, 2026", summary: "Repeated waterlogging at the same junction — third complaint this month." },
     ],
+    resolvedCases: [
+      { id: "RSV-1102", district: "Gasabo, Remera", date: "Nov 2025", issue: "Chronic waterlogging on KG 7 Ave during rainy season", resolution: "WASAC replaced 1.2km of collapsed storm drains and installed 4 new catch basins", outcome: "Flooding complaints dropped 78% in 60 days; no waterlogging reported in subsequent rains", resolvedBy: "WASAC + Gasabo District Works" },
+      { id: "RSV-0847", district: "Kicukiro, Gikondo", date: "Aug 2025", issue: "Repeated sewage backup in residential area near Gikondo industrial zone", resolution: "Emergency desludging and upgrade of drainage channel capacity from 200L/s to 450L/s", outcome: "Zero sewage-related complaints in the area for 5 consecutive months", resolvedBy: "WASAC Field Operations" },
+    ],
   },
   {
     icon: Droplets,
@@ -62,6 +77,10 @@ const insights: Insight[] = [
       { id: "CMP-4641", citizen: "T. Bizimungu", district: "Nyarugenge, Nyamirambo", date: "Mar 22, 2026", summary: "Brown/rusty water coming from taps — possible corroded pipes." },
       { id: "CMP-4620", citizen: "G. Uwamariya", district: "Nyarugenge, Nyamirambo", date: "Mar 21, 2026", summary: "Water supply intermittent for the past week, no official notice given." },
     ],
+    resolvedCases: [
+      { id: "RSV-0923", district: "Nyarugenge, Nyakabanda", date: "Sep 2025", issue: "Frequent pipe bursts and low pressure affecting 800+ households", resolution: "WASAC replaced 3.4km of corroded iron pipes with HDPE pipes and installed pressure regulation valves", outcome: "Water pressure normalized within 2 weeks; pipe burst incidents reduced by 91%", resolvedBy: "WASAC Infrastructure Division" },
+      { id: "RSV-0671", district: "Gasabo, Kacyiru", date: "May 2025", issue: "Intermittent supply and discolored water in government office district", resolution: "Installed new water storage tank (500m³) and flushed corroded pipe segments", outcome: "Continuous supply restored; water quality complaints dropped to zero", resolvedBy: "WASAC + Kigali City" },
+    ],
   },
   {
     icon: Construction,
@@ -76,6 +95,10 @@ const insights: Insight[] = [
       { id: "CMP-4401", citizen: "F. Ndayisaba", district: "Kicukiro, Gatenga", date: "Mar 15, 2026", summary: "Large pothole on KK 15 Rd caused tire damage to my vehicle." },
       { id: "CMP-4389", citizen: "B. Mutesi", district: "Kicukiro, Gatenga", date: "Mar 14, 2026", summary: "Road surface completely broken near Gatenga market, dangerous for motorcycles." },
       { id: "CMP-4350", citizen: "S. Hakizimana", district: "Kicukiro, Gatenga", date: "Mar 12, 2026", summary: "Potholes filled last week have reappeared — poor quality repair materials." },
+    ],
+    resolvedCases: [
+      { id: "RSV-0789", district: "Nyarugenge, Gitega", date: "Jul 2025", issue: "Dangerous potholes on major commercial road causing accidents", resolution: "RTDA deployed rapid-response team for full-surface patching on 2.8km stretch within 5 days", outcome: "Road complaints dropped 63% in 30 days; accident reports at the junction fell to zero", resolvedBy: "RTDA Rapid Response Unit" },
+      { id: "RSV-0554", district: "Gasabo, Kimihurura", date: "Apr 2025", issue: "Road deterioration near embassy district causing traffic and safety issues", resolution: "Complete resurfacing with improved drainage channels along KG 9 Ave", outcome: "Citizen satisfaction survey showed 89% approval; zero new complaints in 4 months", resolvedBy: "RTDA + Gasabo District" },
     ],
   },
   {
@@ -94,6 +117,10 @@ const insights: Insight[] = [
       { id: "CMP-4788", citizen: "V. Nshimiyimana", district: "Musanze, Muhoza", date: "Mar 25, 2026", summary: "Street lights not working for 4 days, safety concern for women and elderly." },
       { id: "CMP-4775", citizen: "N. Uwase", district: "Musanze, Muhoza", date: "Mar 25, 2026", summary: "Repeated power cuts during peak hours, seems like grid overload issue." },
       { id: "CMP-4760", citizen: "H. Kamanzi", district: "Musanze, Muhoza", date: "Mar 24, 2026", summary: "Unscheduled outage lasted 10 hours, no response from helpline." },
+    ],
+    resolvedCases: [
+      { id: "RSV-0998", district: "Rubavu, Gisenyi", date: "Oct 2025", issue: "Grid overload causing daily power cuts during evening peak hours", resolution: "REG installed a new 5MVA transformer and upgraded feeder lines serving 3 cells", outcome: "Power outage complaints dropped 85% within 45 days; peak-hour stability restored", resolvedBy: "REG Western Region" },
+      { id: "RSV-0812", district: "Huye, Tumba", date: "Aug 2025", issue: "Transformer failure left 1,200 households without power for 3 days", resolution: "Emergency transformer replacement and installation of surge protection on the feeder", outcome: "Power restored in 18 hours after equipment arrived; no repeat failures in 6 months", resolvedBy: "REG + Huye District" },
     ],
   },
 ];
@@ -207,6 +234,51 @@ const InsightsFeed = () => {
                   ))}
                 </div>
               </div>
+
+              {selected.resolvedCases.length > 0 && (
+                <div className="mt-6">
+                  <div className="flex items-center gap-2 mb-3">
+                    <CheckCircle2 className="h-4 w-4 text-positive" />
+                    <h4 className="text-sm font-semibold text-foreground">
+                      Previously Resolved Similar Cases ({selected.resolvedCases.length})
+                    </h4>
+                  </div>
+                  <div className="space-y-3">
+                    {selected.resolvedCases.map((rc) => (
+                      <div key={rc.id} className="p-3 rounded-lg border border-positive/20 bg-positive/5">
+                        <div className="flex items-center justify-between mb-1.5">
+                          <span className="text-xs font-mono font-semibold text-positive">{rc.id}</span>
+                          <div className="flex items-center gap-2 text-[11px] text-muted-foreground">
+                            <span className="flex items-center gap-1">
+                              <MapPin className="h-3 w-3" />
+                              {rc.district}
+                            </span>
+                            <span className="flex items-center gap-1">
+                              <Calendar className="h-3 w-3" />
+                              {rc.date}
+                            </span>
+                          </div>
+                        </div>
+                        <p className="text-sm font-medium text-foreground mb-1">{rc.issue}</p>
+                        <div className="space-y-1.5 mt-2">
+                          <div className="flex items-start gap-2">
+                            <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mt-0.5 shrink-0 w-16">Action</span>
+                            <p className="text-xs text-foreground/80 leading-relaxed">{rc.resolution}</p>
+                          </div>
+                          <div className="flex items-start gap-2">
+                            <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mt-0.5 shrink-0 w-16">Result</span>
+                            <p className="text-xs text-positive leading-relaxed font-medium">{rc.outcome}</p>
+                          </div>
+                          <div className="flex items-start gap-2">
+                            <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mt-0.5 shrink-0 w-16">Led by</span>
+                            <p className="text-xs text-foreground/70 leading-relaxed">{rc.resolvedBy}</p>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </>
           )}
         </DialogContent>
