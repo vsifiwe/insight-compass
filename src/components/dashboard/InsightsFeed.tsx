@@ -77,6 +77,10 @@ const insights: Insight[] = [
       { id: "CMP-4641", citizen: "T. Bizimungu", district: "Nyarugenge, Nyamirambo", date: "Mar 22, 2026", summary: "Brown/rusty water coming from taps — possible corroded pipes." },
       { id: "CMP-4620", citizen: "G. Uwamariya", district: "Nyarugenge, Nyamirambo", date: "Mar 21, 2026", summary: "Water supply intermittent for the past week, no official notice given." },
     ],
+    resolvedCases: [
+      { id: "RSV-0923", district: "Nyarugenge, Nyakabanda", date: "Sep 2025", issue: "Frequent pipe bursts and low pressure affecting 800+ households", resolution: "WASAC replaced 3.4km of corroded iron pipes with HDPE pipes and installed pressure regulation valves", outcome: "Water pressure normalized within 2 weeks; pipe burst incidents reduced by 91%", resolvedBy: "WASAC Infrastructure Division" },
+      { id: "RSV-0671", district: "Gasabo, Kacyiru", date: "May 2025", issue: "Intermittent supply and discolored water in government office district", resolution: "Installed new water storage tank (500m³) and flushed corroded pipe segments", outcome: "Continuous supply restored; water quality complaints dropped to zero", resolvedBy: "WASAC + Kigali City" },
+    ],
   },
   {
     icon: Construction,
