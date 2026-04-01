@@ -42,7 +42,7 @@ const Index = () => {
         {/* Dashboard */}
         <main className="flex-1 min-w-0 space-y-8">
           <section>
-            <h2 className="text-2xl font-bold text-foreground">Welcome, Honorable</h2>
+            <h2 className="text-2xl font-bold text-foreground">Welcome back, Honorable Yves</h2>
             <p className="text-sm text-muted-foreground mt-1">Here's your civic engagement overview for today.</p>
           </section>
 

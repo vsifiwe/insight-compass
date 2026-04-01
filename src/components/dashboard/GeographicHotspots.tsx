@@ -43,9 +43,6 @@ const GeographicHotspots = () => {
               <span className="text-sm font-medium text-foreground">{z.name}</span>
               <div className="flex items-center gap-2">
                 <span className="text-xs text-muted-foreground">{z.complaints}</span>
-                <span className={`text-[10px] px-1.5 py-0.5 rounded-full border font-medium ${severityStyles[z.severity]}`}>
-                  {z.severity}
-                </span>
               </div>
             </div>
             <div className="h-1.5 rounded-full bg-muted overflow-hidden">

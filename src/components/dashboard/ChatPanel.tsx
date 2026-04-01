@@ -1,7 +1,5 @@
 import { useState, useRef, useEffect } from "react";
 import { Send, Bot, User, Sparkles } from "lucide-react";
-import { Card } from "@/components/ui/card";
-import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface Message {
   role: "user" | "assistant";
@@ -9,6 +7,7 @@ interface Message {
 }
 
 const prefillQuestions = [
+  "How is my location doing in terms of complaints?",
   "How many staff have logged in the past month?",
   "Which district has the most unresolved complaints?",
   "What is the average complaint resolution time?",
@@ -16,6 +15,8 @@ const prefillQuestions = [
 ];
 
 const mockResponses: Record<string, string> = {
+  "How is my location doing in terms of complaints?":
+    "Your location has received a total of **329 complaints** in the past week.\n\n**89%** of them were acknowledged within a day of being submitted, which is standard for the **1-day SLA**.\n\nHowever, more than **67%** have been unresolved and without any action or communication to the citizen, suggesting that the **5-day resolution SLA** is not being followed.\n\n**Recommendation:** District supervisors should review pending complaints older than 5 days and ensure citizens receive status updates within the required timeframe.",
   "How many staff have logged in the past month?":
     "**66% (33 out of 50)** staff in your location have logged in in the past month.\n\nThis trend has **significantly dropped from 98+%** in the previous month, suggesting that complaints are not being attended to urgently enough and affecting citizen engagement.\n\n**Recommendation:** Consider scheduling a review meeting with district supervisors to address the drop in platform activity and ensure complaint queues are being monitored.",
   "Which district has the most unresolved complaints?":
@@ -154,6 +155,21 @@ const ChatPanel = () => {
           </div>
         )}
       </div>
+
+      {/* Scrollable suggestion chips — shown after conversation starts */}
+      {messages.length > 0 && (
+        <div className="flex gap-2 overflow-x-auto px-3 py-2 border-t border-border/60 scrollbar-none" style={{ scrollbarWidth: "none" }}>
+          {prefillQuestions.map((q) => (
+            <button
+              key={q}
+              onClick={() => handleSend(q)}
+              className="shrink-0 text-xs px-3 py-1.5 rounded-full border border-border/60 bg-muted/30 hover:bg-muted/60 transition-colors whitespace-nowrap text-foreground"
+            >
+              {q}
+            </button>
+          ))}
+        </div>
+      )}
 
       {/* Input */}
       <div className="px-3 py-3 border-t border-border/60">

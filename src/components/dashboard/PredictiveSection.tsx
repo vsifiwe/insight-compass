@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { AlertTriangle, ArrowRight, CloudRain, Wrench, TrendingUp, Droplets, Calendar, ThermometerSun } from "lucide-react";
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell, LineChart, Line, CartesianGrid } from "recharts";
+import { AlertTriangle, ArrowRight, BookOpen, Clock, XCircle, CheckSquare, ExternalLink, Database, Newspaper } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -8,102 +7,107 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
+import { Badge } from "@/components/ui/badge";
 
-interface Factor {
-  name: string;
-  contribution: number;
-  icon: typeof CloudRain;
-  detail: string;
+interface PastIncident {
+  date: string;
+  location: string;
+  description: string;
+  complaintsCount: number;
 }
 
-interface TrendPoint {
-  month: string;
-  actual?: number;
-  predicted?: number;
+interface Reference {
+  title: string;
+  source: "Mbaza" | "New Times" | "KigaliToday" | "Igihe" | "NISR";
+  url: string;
 }
 
-interface Prediction {
-  area: string;
-  prediction: string;
-  reason: string;
-  confidence: number;
+interface Alert {
+  topic: string;
+  headline: string;
+  trigger: string;
+  triggerType: "news" | "complaint-pattern" | "seasonal";
   risk: "critical" | "high" | "moderate";
-  factors: Factor[];
-  trendData: TrendPoint[];
-  summary: string;
+  currentSignal: string;
+  pastIncidents: PastIncident[];
+  whatWentWrong: string[];
+  recommendations: string[];
+  references: Reference[];
 }
 
-const predictions: Prediction[] = [
+const alerts: Alert[] = [
   {
-    area: "Gasabo — Kimironko",
-    prediction: "Complaints expected to rise 40% in the next 30 days",
-    reason: "Heavy rainfall forecast + aging drainage infrastructure",
-    confidence: 87,
-    risk: "critical",
-    summary: "The model detects a strong correlation between rainfall intensity and drainage complaints in Kimironko. With forecasted above-average rainfall in April and infrastructure averaging 28 years old, a significant surge is expected.",
-    factors: [
-      { name: "Rainfall Forecast", contribution: 42, icon: CloudRain, detail: "April forecast: 45% above seasonal average" },
-      { name: "Infrastructure Age", contribution: 30, icon: Wrench, detail: "Avg drainage pipe age: 28 years (replacement threshold: 20)" },
-      { name: "Historical Pattern", contribution: 18, icon: TrendingUp, detail: "Same period last year saw 35% spike" },
-      { name: "Population Density", contribution: 10, icon: Droplets, detail: "12% population increase in sector since 2024" },
-    ],
-    trendData: [
-      { month: "Oct", actual: 120 },
-      { month: "Nov", actual: 145 },
-      { month: "Dec", actual: 168 },
-      { month: "Jan", actual: 190 },
-      { month: "Feb", actual: 210 },
-      { month: "Mar", actual: 248 },
-      { month: "Apr", predicted: 347 },
-      { month: "May", predicted: 310 },
-    ],
-  },
-  {
-    area: "Nyarugenge — Nyamirambo",
-    prediction: "Water supply complaints likely to double by April",
-    reason: "Seasonal demand surge + pipeline maintenance delays",
-    confidence: 79,
+    topic: "Citizen Relocation",
+    headline: "Road expansion project may trigger relocation complaints without early preparation",
+    trigger: "News: road project requiring household relocations",
+    triggerType: "news",
     risk: "high",
-    summary: "Dry season demand typically increases 60% in Nyamirambo. Combined with delayed pipeline maintenance in Biryogo cell, the model predicts supply disruptions will generate significant complaints.",
-    factors: [
-      { name: "Seasonal Demand", contribution: 38, icon: ThermometerSun, detail: "Dry season increases water demand by 60%" },
-      { name: "Maintenance Delays", contribution: 32, icon: Wrench, detail: "3 scheduled repairs postponed from Q1" },
-      { name: "Leak Rate", contribution: 20, icon: Droplets, detail: "Current leak rate 3x city average in old pipes" },
-      { name: "Historical Pattern", contribution: 10, icon: Calendar, detail: "April 2025 saw 2.1x spike in same area" },
+    currentSignal: "New Times and KigaliToday are reporting a new road expansion project in Kigali that will require relocating an estimated 400–600 households. Construction is scheduled to begin in Q3 2026.",
+    pastIncidents: [
+      {
+        date: "Jan–Sep 2023",
+        location: "Kicukiro, Gatenga",
+        description: "Households relocated for the Kigali–Huye expressway expansion filed 214 complaints over 9 months. Citizens reported waiting over 6 months for compensation after being required to vacate their properties.",
+        complaintsCount: 214,
+      },
+      {
+        date: "Mar–Nov 2022",
+        location: "Nyarugenge, Nyakabanda",
+        description: "Urban upgrade project required relocation of 180 households. 143 complaints were filed regarding delays in property valuation and unclear communication from district officials on compensation timelines.",
+        complaintsCount: 143,
+      },
     ],
-    trendData: [
-      { month: "Oct", actual: 85 },
-      { month: "Nov", actual: 92 },
-      { month: "Dec", actual: 105 },
-      { month: "Jan", actual: 130 },
-      { month: "Feb", actual: 158 },
-      { month: "Mar", actual: 198 },
-      { month: "Apr", predicted: 380 },
-      { month: "May", predicted: 340 },
+    whatWentWrong: [
+      "No relocation budget was pre-allocated — approval processes started only after relocations began, creating months of delay",
+      "Property evaluation teams were understaffed; too few evaluators to handle the volume, causing backlogs",
+      "No dedicated communication channel was set up — citizens had to individually follow up at sector offices with no guaranteed response",
+    ],
+    recommendations: [
+      "In the Kicukiro expressway case, the district pre-allocated a dedicated compensation budget within the project plan before relocations began — this cut processing time from 8 months to 6 weeks in similar cases that followed.",
+      "A property evaluation team of 5 officers was deployed 2 months before relocations in the Remera upgrade project, completing all assessments before any household had to move and eliminating valuation-delay complaints.",
+      "Nyakabanda district assigned a single named contact officer for affected residents after complaints peaked — unresolved follow-up complaints dropped 60% compared to the previous project.",
+    ],
+    references: [
+      { title: "Mbaza complaint history — 214 relocation complaints, Gatenga sector (Jan–Sep 2023)", source: "Mbaza", url: "https://mbaza.gov.rw/complaints?category=relocation&location=gatenga&period=2023" },
+      { title: "New road expansion project to affect hundreds of Kigali households", source: "New Times", url: "https://newtimes.co.rw/article/kigali-road-expansion-relocations-2026" },
+      { title: "Abaturage bazimvurwa inzu bitewe na projet yo gukanura imihanda i Kigali", source: "KigaliToday", url: "https://kigalitoday.com/relocation-road-project-kigali-2026" },
     ],
   },
   {
-    area: "Kicukiro — Gatenga",
-    prediction: "Road complaints may increase 25% within 2 weeks",
-    reason: "Post-rainy season pothole formation pattern detected",
-    confidence: 72,
+    topic: "Urban Renewal",
+    headline: "Informal trader displacement could repeat past complaint surges without advance planning",
+    trigger: "News: urban renewal zone expansion in Kigali",
+    triggerType: "news",
     risk: "moderate",
-    summary: "Road surface deterioration follows a predictable pattern after heavy rains. Gatenga's roads, last resurfaced in 2022, are showing accelerated wear consistent with pre-pothole conditions.",
-    factors: [
-      { name: "Road Surface Age", contribution: 35, icon: Wrench, detail: "Last resurfaced: 2022, expected life: 4 years" },
-      { name: "Recent Rainfall", contribution: 30, icon: CloudRain, detail: "March rainfall weakened road substrate" },
-      { name: "Traffic Volume", contribution: 20, icon: TrendingUp, detail: "Heavy vehicle traffic up 15% on KK 15 Rd" },
-      { name: "Historical Pattern", contribution: 15, icon: Calendar, detail: "Post-rain complaints spike within 2-3 weeks" },
+    currentSignal: "Igihe and New Times are reporting that the City of Kigali plans to expand urban renewal zones in several districts, which is expected to affect informal market areas currently housing thousands of traders.",
+    pastIncidents: [
+      {
+        date: "Jun–Dec 2022",
+        location: "Nyarugenge, Rwezamenyo",
+        description: "Clearance of an informal market for an urban renewal project displaced 320 traders. 189 complaints were filed about sudden evictions without notice, no alternative trading spaces, and unpaid compensation pledges.",
+        complaintsCount: 189,
+      },
+      {
+        date: "Feb–Aug 2021",
+        location: "Kicukiro, Gikondo",
+        description: "Demolition of informal structures near the industrial zone generated 97 complaints from displaced traders who reported receiving less than 2 weeks notice and no guidance on relocation options.",
+        complaintsCount: 97,
+      },
     ],
-    trendData: [
-      { month: "Oct", actual: 95 },
-      { month: "Nov", actual: 88 },
-      { month: "Dec", actual: 102 },
-      { month: "Jan", actual: 110 },
-      { month: "Feb", actual: 125 },
-      { month: "Mar", actual: 140 },
-      { month: "Apr", predicted: 175 },
-      { month: "May", predicted: 160 },
+    whatWentWrong: [
+      "Traders were given insufficient notice — in some cases less than 2 weeks — with no explanation of the process or their rights",
+      "No alternative trading sites were identified or prepared before market clearance began",
+      "Inter-agency coordination between district offices, Rwanda Housing Authority, and MINICOM only started after complaints escalated",
+    ],
+    recommendations: [
+      "In Kimisagara, trader associations were engaged 8 weeks before clearance through a structured dialogue facilitated by the district — complaint volumes were 40% lower than in the Rwezamenyo clearance where no prior engagement took place.",
+      "After Gikondo verbal-pledge disputes generated 97 complaints, subsequent projects introduced written compensation agreements with specific payment dates — compensation-dispute complaints dropped to near zero.",
+      "A dedicated inter-agency task team (district + RHA + MINICOM) formed at the planning stage of the Kacyiru renewal project resolved all trader relocation complaints within 2 weeks of filing, versus a months-long backlog in earlier cases.",
+    ],
+    references: [
+      { title: "Mbaza complaint history — 189 trader displacement complaints, Rwezamenyo (Jun–Dec 2022)", source: "Mbaza", url: "https://mbaza.gov.rw/complaints?category=displacement&location=rwezamenyo&period=2022" },
+      { title: "City of Kigali to expand urban renewal zones — informal traders to be affected", source: "Igihe", url: "https://igihe.com/amakuru/kigali-urban-renewal-abatusti-2026" },
+      { title: "Kigali urban master plan expansion: what it means for informal markets", source: "New Times", url: "https://newtimes.co.rw/article/kigali-masterplan-informal-markets-2026" },
     ],
   },
 ];
@@ -114,144 +118,183 @@ const riskBorder = {
   moderate: "border-l-insight",
 };
 
-const riskColors = {
-  critical: "hsl(0, 72%, 51%)",
-  high: "hsl(38, 85%, 55%)",
-  moderate: "hsl(210, 60%, 50%)",
+const riskBadge = {
+  critical: { bg: "bg-danger/10", text: "text-danger" },
+  high: { bg: "bg-warning/10", text: "text-warning-foreground" },
+  moderate: { bg: "bg-insight/10", text: "text-insight" },
 };
 
-const factorColors = [
-  "hsl(210, 60%, 50%)",
-  "hsl(220, 45%, 30%)",
-  "hsl(38, 85%, 55%)",
-  "hsl(160, 50%, 40%)",
-];
+const triggerBadge = {
+  news: { label: "News Signal", icon: Newspaper, bg: "bg-primary/10", text: "text-primary" },
+  "complaint-pattern": { label: "Complaint Pattern", icon: BookOpen, bg: "bg-warning/10", text: "text-warning-foreground" },
+  seasonal: { label: "Seasonal Pattern", icon: Clock, bg: "bg-muted", text: "text-muted-foreground" },
+};
+
+const sourceColors: Record<string, { bg: string; text: string }> = {
+  Mbaza: { bg: "bg-primary/10", text: "text-primary" },
+  Igihe: { bg: "bg-orange-100", text: "text-orange-700" },
+  "New Times": { bg: "bg-green-100", text: "text-green-700" },
+  KigaliToday: { bg: "bg-teal-100", text: "text-teal-700" },
+  NISR: { bg: "bg-purple-100", text: "text-purple-700" },
+};
 
 const PredictiveSection = () => {
-  const [selected, setSelected] = useState<Prediction | null>(null);
+  const [selected, setSelected] = useState<Alert | null>(null);
 
   return (
     <>
       <div className="rounded-xl bg-card border border-border/60 p-6">
         <div className="flex items-center gap-2 mb-1">
           <AlertTriangle className="h-4 w-4 text-warning" />
-          <h3 className="text-lg font-serif text-foreground">Predictive Alerts</h3>
+          <h3 className="text-lg font-serif text-foreground">Preparedness Alerts</h3>
         </div>
-        <p className="text-sm text-muted-foreground mb-5">Areas likely to see complaint surges</p>
+        <p className="text-sm text-muted-foreground mb-5">Lessons from past cases to guide proactive decision-making</p>
         <div className="space-y-4">
-          {predictions.map((p) => (
-            <div
-              key={p.area}
-              onClick={() => setSelected(p)}
-              className={`border-l-[3px] ${riskBorder[p.risk]} rounded-r-lg bg-muted/30 p-4 cursor-pointer hover:bg-muted/50 transition-colors`}
-            >
-              <div className="flex items-start justify-between">
-                <div>
-                  <p className="text-sm font-semibold text-foreground">{p.area}</p>
-                  <p className="text-sm text-foreground/80 mt-1">{p.prediction}</p>
-                  <p className="text-xs text-muted-foreground mt-2 flex items-center gap-1">
-                    <ArrowRight className="h-3 w-3" /> {p.reason}
-                  </p>
-                </div>
-                <div className="text-right shrink-0 ml-4">
-                  <span className="text-2xl font-bold text-foreground">{p.confidence}%</span>
-                  <p className="text-[10px] text-muted-foreground uppercase tracking-wide">confidence</p>
+          {alerts.map((a) => {
+            const tb = triggerBadge[a.triggerType];
+            const TriggerIcon = tb.icon;
+            return (
+              <div
+                key={a.topic}
+                onClick={() => setSelected(a)}
+                className={`border-l-[3px] ${riskBorder[a.risk]} rounded-r-lg bg-muted/30 p-4 cursor-pointer hover:bg-muted/50 transition-colors`}
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <div className="min-w-0">
+                    <p className="text-sm font-semibold text-foreground">{a.topic}</p>
+                    <p className="text-sm text-foreground/80 mt-1 leading-snug">{a.headline}</p>
+                    <p className="text-xs text-muted-foreground mt-2 flex items-center gap-1">
+                      <ArrowRight className="h-3 w-3 shrink-0" />
+                      {a.trigger}
+                    </p>
+                  </div>
+                  <div className="shrink-0">
+                    <span className={`flex items-center gap-1 text-[10px] font-semibold px-2 py-1 rounded-full ${tb.bg} ${tb.text}`}>
+                      <TriggerIcon className="h-3 w-3" />
+                      {tb.label}
+                    </span>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
 
       <Dialog open={!!selected} onOpenChange={(open) => !open && setSelected(null)}>
         <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto">
-          {selected && (
-            <>
-              <DialogHeader>
-                <div className="flex items-center gap-2 mb-1">
-                  <AlertTriangle className="h-4 w-4" style={{ color: riskColors[selected.risk] }} />
-                  <span className="text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full"
-                    style={{
-                      backgroundColor: `${riskColors[selected.risk]}15`,
-                      color: riskColors[selected.risk],
-                    }}
-                  >
-                    {selected.risk} risk
-                  </span>
-                  <span className="text-sm font-bold text-foreground ml-auto">{selected.confidence}% confidence</span>
-                </div>
-                <DialogTitle className="font-serif text-xl">{selected.area}</DialogTitle>
-                <DialogDescription>{selected.prediction}</DialogDescription>
-              </DialogHeader>
+          {selected && (() => {
+            const tb = triggerBadge[selected.triggerType];
+            const TriggerIcon = tb.icon;
+            const rb = riskBadge[selected.risk];
+            return (
+              <>
+                <DialogHeader>
+                  <div className="flex items-center gap-2 mb-1 flex-wrap">
+                    <span className={`text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full ${rb.bg} ${rb.text}`}>
+                      {selected.risk} risk
+                    </span>
+                    <span className={`flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-full ${tb.bg} ${tb.text}`}>
+                      <TriggerIcon className="h-3 w-3" />
+                      {tb.label}
+                    </span>
+                  </div>
+                  <DialogTitle className="font-serif text-xl">{selected.topic}</DialogTitle>
+                  <DialogDescription className="leading-relaxed">{selected.headline}</DialogDescription>
+                </DialogHeader>
 
-              <div className="p-3 rounded-lg bg-muted/30 border border-border/60 text-sm text-foreground/80 leading-relaxed">
-                {selected.summary}
-              </div>
-
-              {/* Trend Chart */}
-              <div className="mt-4">
-                <h4 className="text-sm font-semibold text-foreground mb-3">Complaint Trend & Forecast</h4>
-                <div className="h-48 bg-muted/20 rounded-lg p-2">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <LineChart data={selected.trendData} margin={{ top: 5, right: 10, bottom: 5, left: 0 }}>
-                      <CartesianGrid strokeDasharray="3 3" stroke="hsl(220, 15%, 90%)" />
-                      <XAxis dataKey="month" tick={{ fontSize: 11, fill: "hsl(220, 10%, 50%)" }} axisLine={false} tickLine={false} />
-                      <YAxis tick={{ fontSize: 11, fill: "hsl(220, 10%, 50%)" }} axisLine={false} tickLine={false} />
-                      <Tooltip
-                        contentStyle={{
-                          background: "hsl(0, 0%, 100%)",
-                          border: "1px solid hsl(220, 15%, 90%)",
-                          borderRadius: "8px",
-                          fontSize: "13px",
-                        }}
-                      />
-                      <Line type="monotone" dataKey="actual" stroke="hsl(210, 60%, 50%)" strokeWidth={2} dot={{ r: 3 }} name="Actual" />
-                      <Line type="monotone" dataKey="predicted" stroke={riskColors[selected.risk]} strokeWidth={2} strokeDasharray="6 3" dot={{ r: 3 }} name="Predicted" />
-                    </LineChart>
-                  </ResponsiveContainer>
-                </div>
-              </div>
-
-              {/* Contributing Factors */}
-              <div className="mt-4">
-                <h4 className="text-sm font-semibold text-foreground mb-3">Contributing Factors</h4>
-                <div className="h-40">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <BarChart data={selected.factors} layout="vertical" margin={{ top: 0, right: 10, bottom: 0, left: 0 }}>
-                      <XAxis type="number" tick={{ fontSize: 11, fill: "hsl(220, 10%, 50%)" }} axisLine={false} tickLine={false} domain={[0, 50]} tickFormatter={(v) => `${v}%`} />
-                      <YAxis type="category" dataKey="name" tick={{ fontSize: 12, fill: "hsl(220, 30%, 12%)" }} axisLine={false} tickLine={false} width={120} />
-                      <Tooltip
-                        contentStyle={{
-                          background: "hsl(0, 0%, 100%)",
-                          border: "1px solid hsl(220, 15%, 90%)",
-                          borderRadius: "8px",
-                          fontSize: "13px",
-                        }}
-                        formatter={(value: number) => [`${value}%`, "Contribution"]}
-                      />
-                      <Bar dataKey="contribution" radius={[0, 4, 4, 0]} barSize={14}>
-                        {selected.factors.map((_, i) => (
-                          <Cell key={i} fill={factorColors[i]} />
-                        ))}
-                      </Bar>
-                    </BarChart>
-                  </ResponsiveContainer>
+                {/* Current signal */}
+                <div className="p-3 rounded-lg bg-primary/5 border border-primary/10">
+                  <p className="text-[11px] font-semibold uppercase tracking-wider text-primary mb-1">What triggered this alert</p>
+                  <p className="text-sm text-foreground/80 leading-relaxed">{selected.currentSignal}</p>
                 </div>
 
-                <div className="space-y-2 mt-4">
-                  {selected.factors.map((f, i) => (
-                    <div key={f.name} className="flex items-start gap-3 p-2.5 rounded-lg bg-muted/20">
-                      <f.icon className="h-4 w-4 mt-0.5 shrink-0" style={{ color: factorColors[i] }} />
-                      <div>
-                        <p className="text-sm font-medium text-foreground">{f.name} ({f.contribution}%)</p>
-                        <p className="text-xs text-muted-foreground">{f.detail}</p>
+                {/* Past incidents */}
+                <div className="mt-4">
+                  <div className="flex items-center gap-2 mb-3">
+                    <BookOpen className="h-4 w-4 text-muted-foreground" />
+                    <h4 className="text-sm font-semibold text-foreground">Past Incidents ({selected.pastIncidents.length})</h4>
+                  </div>
+                  <div className="space-y-3">
+                    {selected.pastIncidents.map((inc, i) => (
+                      <div key={i} className="p-3 rounded-lg border border-border/60 bg-muted/20">
+                        <div className="flex items-center justify-between mb-1.5">
+                          <span className="text-xs font-semibold text-foreground">{inc.location}</span>
+                          <div className="flex items-center gap-3">
+                            <Badge variant="secondary" className="text-[10px]">{inc.complaintsCount} complaints</Badge>
+                            <span className="text-[11px] text-muted-foreground">{inc.date}</span>
+                          </div>
+                        </div>
+                        <p className="text-sm text-foreground/80 leading-relaxed">{inc.description}</p>
                       </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
-              </div>
-            </>
-          )}
+
+                {/* What went wrong */}
+                <div className="mt-4">
+                  <div className="flex items-center gap-2 mb-3">
+                    <XCircle className="h-4 w-4 text-danger" />
+                    <h4 className="text-sm font-semibold text-foreground">What Went Wrong</h4>
+                  </div>
+                  <div className="space-y-2">
+                    {selected.whatWentWrong.map((item, i) => (
+                      <div key={i} className="flex items-start gap-2.5 p-2.5 rounded-lg bg-danger/5 border border-danger/10">
+                        <XCircle className="h-3.5 w-3.5 text-danger mt-0.5 shrink-0" />
+                        <p className="text-xs text-foreground/80 leading-relaxed">{item}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Recommendations */}
+                <div className="mt-4">
+                  <div className="flex items-center gap-2 mb-3">
+                    <CheckSquare className="h-4 w-4 text-positive" />
+                    <h4 className="text-sm font-semibold text-foreground">What Resolved It Before</h4>
+                  </div>
+                  <div className="space-y-2">
+                    {selected.recommendations.map((rec, i) => (
+                      <div key={i} className="flex items-start gap-2.5 p-2.5 rounded-lg bg-positive/5 border border-positive/10">
+                        <CheckSquare className="h-3.5 w-3.5 text-positive mt-0.5 shrink-0" />
+                        <p className="text-xs text-foreground/80 leading-relaxed">{rec}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Sources & References */}
+                <div className="mt-6">
+                  <div className="flex items-center gap-2 mb-3">
+                    <Database className="h-4 w-4 text-muted-foreground" />
+                    <h4 className="text-sm font-semibold text-foreground">Sources & References</h4>
+                  </div>
+                  <div className="space-y-2">
+                    {selected.references.map((ref, i) => {
+                      const colors = sourceColors[ref.source] || { bg: "bg-muted/30", text: "text-foreground" };
+                      return (
+                        <div key={i} className="flex items-start gap-2.5 p-2.5 rounded-lg border border-border/60 bg-muted/10">
+                          <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full shrink-0 mt-0.5 ${colors.bg} ${colors.text}`}>
+                            {ref.source}
+                          </span>
+                          <a
+                            href={ref.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-xs text-foreground/80 hover:text-primary transition-colors flex items-start gap-1 leading-relaxed"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            {ref.title}
+                            <ExternalLink className="h-3 w-3 shrink-0 mt-0.5 opacity-50" />
+                          </a>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </>
+            );
+          })()}
         </DialogContent>
       </Dialog>
     </>
