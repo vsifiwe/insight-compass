@@ -14,8 +14,7 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ['DM Sans', 'system-ui', 'sans-serif'],
-        serif: ['DM Serif Display', 'serif'],
+        sans: ['Inter', 'system-ui', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -66,6 +65,12 @@ export default {
         insight: {
           DEFAULT: "hsl(var(--insight))",
           foreground: "hsl(var(--insight-foreground))",
+        },
+        "civic-teal": {
+          DEFAULT: "hsl(var(--civic-teal))",
+        },
+        "civic-navy": {
+          DEFAULT: "hsl(var(--civic-navy))",
         },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
