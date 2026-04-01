@@ -4,8 +4,8 @@ import ComplaintTrends from "@/components/dashboard/ComplaintTrends";
 import GeographicHotspots from "@/components/dashboard/GeographicHotspots";
 import PredictiveSection from "@/components/dashboard/PredictiveSection";
 import InsightsFeed from "@/components/dashboard/InsightsFeed";
-
 import InterventionImpact from "@/components/dashboard/InterventionImpact";
+import ChatPanel from "@/components/dashboard/ChatPanel";
 
 const Index = () => {
   return (
@@ -37,39 +37,41 @@ const Index = () => {
         </div>
       </header>
 
-      {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-6 py-8 space-y-8">
-        {/* Welcome Header */}
-        <section>
-          <h2 className="text-2xl font-bold text-foreground">Welcome, Honorable</h2>
-          <p className="text-sm text-muted-foreground mt-1">Here's your civic engagement overview for today.</p>
-        </section>
+      {/* Main Content + Chat */}
+      <div className="max-w-[1600px] mx-auto px-6 py-8 flex gap-6">
+        {/* Dashboard */}
+        <main className="flex-1 min-w-0 space-y-8">
+          <section>
+            <h2 className="text-2xl font-bold text-foreground">Welcome, Honorable</h2>
+            <p className="text-sm text-muted-foreground mt-1">Here's your civic engagement overview for today.</p>
+          </section>
 
-        <ExecutiveOverview />
+          <ExecutiveOverview />
+          <InsightsFeed />
 
-        {/* Intelligence Feed - Full Width */}
-        <InsightsFeed />
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <ComplaintTrends />
+            <GeographicHotspots />
+          </div>
 
-        {/* Charts Row */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <ComplaintTrends />
-          <GeographicHotspots />
-        </div>
+          <PredictiveSection />
+          <InterventionImpact />
 
-        {/* Predictive */}
-        <PredictiveSection />
+          <footer className="border-t border-border/60 pt-4">
+            <div className="flex items-center justify-between">
+              <p className="text-xs text-muted-foreground">Last updated: March 27, 2026 · 09:42 AM</p>
+              <p className="text-xs text-muted-foreground">Data sources: Municipal CRM, Weather API, Infrastructure DB</p>
+            </div>
+          </footer>
+        </main>
 
-        {/* Intervention Impact */}
-        <InterventionImpact />
-      </main>
-
-      {/* Footer */}
-      <footer className="border-t border-border/60 mt-8">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <p className="text-xs text-muted-foreground">Last updated: March 27, 2026 · 09:42 AM</p>
-          <p className="text-xs text-muted-foreground">Data sources: Municipal CRM, Weather API, Infrastructure DB</p>
-        </div>
-      </footer>
+        {/* Chat Sidebar */}
+        <aside className="hidden xl:block w-[380px] flex-shrink-0">
+          <div className="sticky top-6 h-[calc(100vh-120px)]">
+            <ChatPanel />
+          </div>
+        </aside>
+      </div>
     </div>
   );
 };
