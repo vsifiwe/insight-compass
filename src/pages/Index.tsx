@@ -18,7 +18,7 @@ const Index = () => {
               <Shield className="h-4 w-4 text-primary-foreground" />
             </div>
             <div>
-              <h1 className="text-lg font-serif text-foreground leading-tight">Mbaza</h1>
+              <h1 className="text-lg font-bold text-foreground leading-tight">Mbaza</h1>
               <p className="text-[11px] text-muted-foreground tracking-wide">Citizen Engagement Platform</p>
             </div>
           </div>
@@ -39,6 +39,12 @@ const Index = () => {
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-6 py-8 space-y-8">
+        {/* Welcome Header */}
+        <section>
+          <h2 className="text-2xl font-bold text-foreground">Welcome, Honorable</h2>
+          <p className="text-sm text-muted-foreground mt-1">Here's your civic engagement overview for today.</p>
+        </section>
+
         <ExecutiveOverview />
 
         {/* Intelligence Feed - Full Width */}
