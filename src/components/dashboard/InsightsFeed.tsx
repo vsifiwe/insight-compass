@@ -1,13 +1,7 @@
 import { useState } from "react";
 import { Lightbulb, TrendingUp, Construction, AlertTriangle, Calendar, User, MapPin, CheckCircle2, ExternalLink, Database } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 
 interface Complaint {
   id: string;
@@ -184,18 +178,17 @@ const InsightsFeed = () => {
       </div>
 
       <Dialog open={!!selected} onOpenChange={(open) => !open && setSelected(null)}>
-        <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto">
+        <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto p-8">
           {selected && (
-            <>
-              <DialogHeader>
-                <div className="flex items-center gap-2 mb-1">
-                  <span className={`text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full ${typeBadge[selected.type]}`}>
-                    {selected.type}
-                  </span>
-                </div>
-                <DialogTitle className="font-serif text-xl">{selected.title}</DialogTitle>
-                <DialogDescription className="leading-relaxed">{selected.body}</DialogDescription>
-                <div className="flex flex-wrap gap-1.5 mt-2">
+            <div className="space-y-8">
+              {/* Header */}
+              <div>
+                <span className={`text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full ${typeBadge[selected.type]}`}>
+                  {selected.type}
+                </span>
+                <h2 className="font-serif text-xl text-foreground mt-3 mb-2">{selected.title}</h2>
+                <p className="text-sm text-muted-foreground leading-relaxed">{selected.body}</p>
+                <div className="flex flex-wrap gap-1.5 mt-3">
                   {selected.categoryTags.map((tag) => (
                     <Badge key={tag} variant="secondary" className="text-[10px] px-2 py-0 h-5">
                       {tag}
@@ -207,31 +200,29 @@ const InsightsFeed = () => {
                     </Badge>
                   ))}
                 </div>
-              </DialogHeader>
+              </div>
 
               {/* Recommendation */}
-              <div className="p-3 rounded-lg bg-primary/5 border border-primary/10 flex items-start gap-2">
+              <div className="p-4 rounded-lg bg-primary/5 border border-primary/10 flex items-start gap-3">
                 <selected.icon className="h-4 w-4 text-primary mt-0.5 shrink-0" />
-                <p className="text-sm font-medium text-foreground">{selected.action}</p>
+                <p className="text-sm font-medium text-foreground leading-relaxed">{selected.action}</p>
               </div>
 
               {/* How the insight was generated */}
-              <div className="mt-8 pt-6 border-t border-border/40">
-                <div className="p-4 rounded-lg border border-border/60 bg-muted/10">
-                  <h4 className="text-sm font-semibold text-foreground mb-2">How this insight was generated</h4>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{selected.methodology}</p>
-                </div>
+              <div className="border-t border-border/40 pt-8">
+                <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground mb-3">How this insight was generated</p>
+                <p className="text-sm text-muted-foreground leading-relaxed">{selected.methodology}</p>
               </div>
 
               {/* Source Complaints */}
-              <div className="mt-8 pt-6 border-t border-border/40">
-                <h4 className="text-sm font-semibold text-foreground mb-4">
+              <div className="border-t border-border/40 pt-8">
+                <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground mb-4">
                   Source Complaints ({selected.complaints.length})
-                </h4>
+                </p>
                 <div className="space-y-3">
                   {selected.complaints.map((c) => (
-                    <div key={c.id} className="p-3 rounded-lg border border-border/60 bg-muted/20">
-                      <div className="flex items-center justify-between mb-1.5">
+                    <div key={c.id} className="p-4 rounded-lg border border-border/60 bg-muted/20">
+                      <div className="flex items-center justify-between mb-2">
                         <span className="text-xs font-mono font-semibold text-primary">{c.id}</span>
                         <div className="flex items-center gap-1 text-[11px] text-muted-foreground">
                           <Calendar className="h-3 w-3" />
@@ -239,7 +230,7 @@ const InsightsFeed = () => {
                         </div>
                       </div>
                       <p className="text-sm text-foreground leading-relaxed">{c.summary}</p>
-                      <div className="flex items-center gap-3 mt-2 text-[11px] text-muted-foreground">
+                      <div className="flex items-center gap-4 mt-3 text-[11px] text-muted-foreground">
                         <span className="flex items-center gap-1">
                           <User className="h-3 w-3" />
                           {c.citizen}
@@ -256,19 +247,19 @@ const InsightsFeed = () => {
 
               {/* Previously Resolved Similar Cases */}
               {selected.resolvedCases.length > 0 && (
-                <div className="mt-8 pt-6 border-t border-border/40">
+                <div className="border-t border-border/40 pt-8">
                   <div className="flex items-center gap-2 mb-4">
                     <CheckCircle2 className="h-4 w-4 text-positive" />
-                    <h4 className="text-sm font-semibold text-foreground">
+                    <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
                       Previously Resolved Similar Cases ({selected.resolvedCases.length})
-                    </h4>
+                    </p>
                   </div>
                   <div className="space-y-3">
                     {selected.resolvedCases.map((rc) => (
-                      <div key={rc.id} className="p-3 rounded-lg border border-positive/20 bg-positive/5">
-                        <div className="flex items-center justify-between mb-1.5">
+                      <div key={rc.id} className="p-4 rounded-lg border border-positive/20 bg-positive/5">
+                        <div className="flex items-center justify-between mb-2">
                           <span className="text-xs font-mono font-semibold text-positive">{rc.id}</span>
-                          <div className="flex items-center gap-2 text-[11px] text-muted-foreground">
+                          <div className="flex items-center gap-3 text-[11px] text-muted-foreground">
                             <span className="flex items-center gap-1">
                               <MapPin className="h-3 w-3" />
                               {rc.district}
@@ -279,18 +270,18 @@ const InsightsFeed = () => {
                             </span>
                           </div>
                         </div>
-                        <p className="text-sm font-medium text-foreground mb-1">{rc.issue}</p>
-                        <div className="space-y-1.5 mt-2">
-                          <div className="flex items-start gap-2">
-                            <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mt-0.5 shrink-0 w-16">Action</span>
+                        <p className="text-sm font-medium text-foreground mb-3">{rc.issue}</p>
+                        <div className="space-y-2">
+                          <div className="flex items-start gap-3">
+                            <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mt-0.5 shrink-0 w-14">Action</span>
                             <p className="text-xs text-foreground/80 leading-relaxed">{rc.resolution}</p>
                           </div>
-                          <div className="flex items-start gap-2">
-                            <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mt-0.5 shrink-0 w-16">Result</span>
+                          <div className="flex items-start gap-3">
+                            <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mt-0.5 shrink-0 w-14">Result</span>
                             <p className="text-xs text-positive leading-relaxed font-medium">{rc.outcome}</p>
                           </div>
-                          <div className="flex items-start gap-2">
-                            <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mt-0.5 shrink-0 w-16">Led by</span>
+                          <div className="flex items-start gap-3">
+                            <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mt-0.5 shrink-0 w-14">Led by</span>
                             <p className="text-xs text-foreground/70 leading-relaxed">{rc.resolvedBy}</p>
                           </div>
                         </div>
@@ -301,16 +292,16 @@ const InsightsFeed = () => {
               )}
 
               {/* Sources & References */}
-              <div className="mt-8 pt-6 border-t border-border/40">
+              <div className="border-t border-border/40 pt-8">
                 <div className="flex items-center gap-2 mb-4">
                   <Database className="h-4 w-4 text-muted-foreground" />
-                  <h4 className="text-sm font-semibold text-foreground">Sources & References</h4>
+                  <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Sources & References</p>
                 </div>
                 <div className="space-y-2">
                   {selected.references.map((ref, i) => {
                     const colors = sourceColors[ref.source] || { bg: "bg-muted/30", text: "text-foreground" };
                     return (
-                      <div key={i} className="flex items-start gap-2.5 p-2.5 rounded-lg border border-border/60 bg-muted/10">
+                      <div key={i} className="flex items-start gap-3 p-3 rounded-lg border border-border/60 bg-muted/10">
                         <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full shrink-0 mt-0.5 ${colors.bg} ${colors.text}`}>
                           {ref.source}
                         </span>
@@ -329,7 +320,7 @@ const InsightsFeed = () => {
                   })}
                 </div>
               </div>
-            </>
+            </div>
           )}
         </DialogContent>
       </Dialog>

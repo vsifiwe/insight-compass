@@ -4,7 +4,6 @@ import ComplaintTrends from "@/components/dashboard/ComplaintTrends";
 import GeographicHotspots from "@/components/dashboard/GeographicHotspots";
 import PredictiveSection from "@/components/dashboard/PredictiveSection";
 import InsightsFeed from "@/components/dashboard/InsightsFeed";
-import InterventionImpact from "@/components/dashboard/InterventionImpact";
 import ChatPanel from "@/components/dashboard/ChatPanel";
 
 const Index = () => {
@@ -55,7 +54,6 @@ const Index = () => {
           </div>
 
           <PredictiveSection />
-          <InterventionImpact />
 
           <footer className="border-t border-border/60 pt-4">
             <div className="flex items-center justify-between">
